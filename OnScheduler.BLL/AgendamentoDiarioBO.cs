@@ -16,7 +16,7 @@ namespace OnScheduler.BLL
             try
             {
                 if (string.IsNullOrEmpty(entity.Url) || entity.Datas == null || string.IsNullOrEmpty(entity.Descricao))
-                    throw new Exception("Todos os campos devem ser preenchidos.");
+                    throw new Exception("Todos os campos devem ser preenchidos corretamente.");
 
                 //Fazer backup das datas
                 var datas = entity.Datas;

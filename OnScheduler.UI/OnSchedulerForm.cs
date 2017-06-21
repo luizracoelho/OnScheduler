@@ -42,6 +42,20 @@ namespace OnScheduler.UI
             InitializeOtherComponents();
         }
 
+        private void OnScheduler_Load(object sender, EventArgs e)
+        {
+            ZerarDatas();
+
+            AgendamentoDiarioDataGridView.AutoGenerateColumns = false;
+            AtualizarGridDiario();
+
+            AgendamentoSazonalDataGridView.AutoGenerateColumns = false;
+            AtualizarGridSazonal();
+            TipoSazonalidadeComboBox.DataSource = Enum.GetNames(typeof(TipoSazonalidade)).ToList();
+
+            OnSchedulerNotifyIcon.Visible = false;
+        }
+
         #region RodarNaBandeja
 
         private void InitializeOtherComponents()
@@ -71,16 +85,6 @@ namespace OnScheduler.UI
             Application.Exit();
         }
 
-        private void OnScheduler_Load(object sender, EventArgs e)
-        {
-            AgendamentoDiarioDataGridView.AutoGenerateColumns = false;
-            AtualizarGridDiario();
-
-            AgendamentoSazonalDataGridView.AutoGenerateColumns = false;
-            AtualizarGridSazonal();
-            TipoSazonalidadeComboBox.DataSource = Enum.GetNames(typeof(TipoSazonalidade)).ToList();
-        }
-
         private void OnSchedulerForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             OnSchedulerNotifyIcon.Visible = true;
@@ -93,7 +97,7 @@ namespace OnScheduler.UI
 
         #region AgendamentoDiario
 
-        private void AdicionarButton_Click(object sender, EventArgs e)
+        private void AdicionarDiarioButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -145,7 +149,20 @@ namespace OnScheduler.UI
             SextaDateTimePicker.Enabled = false;
             SabadoDateTimePicker.Enabled = false;
 
+            ZerarDatas();
+
             DescricaoDiarioTextBox.Focus();
+        }
+
+        private void ZerarDatas()
+        {
+            DomingoDateTimePicker.Value = DateTime.Today;
+            SegundaDateTimePicker.Value = DateTime.Today;
+            TercaDateTimePicker.Value = DateTime.Today;
+            QuartaDateTimePicker.Value = DateTime.Today;
+            QuintaDateTimePicker.Value = DateTime.Today;
+            SextaDateTimePicker.Value = DateTime.Today;
+            SabadoDateTimePicker.Value = DateTime.Today;
         }
 
         private List<Data> PreencherDatas()
@@ -387,6 +404,8 @@ namespace OnScheduler.UI
                                 }
 
                                 AtualizarGridDiario();
+
+                                ResetarCampos();
                             }
                         }
                     }
@@ -448,6 +467,8 @@ namespace OnScheduler.UI
             UrlSazonalTextBox.Text = "";
             TipoSazonalidadeComboBox.SelectedIndex = 0;
             SazonalidadeTextBox.Text = "";
+
+            DescricaoSazonalTextBox.Focus();
         }
 
         private void AgendamentoSazonalDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -493,6 +514,8 @@ namespace OnScheduler.UI
                                 }
 
                                 AtualizarGridSazonal();
+
+                                LimparCampos();
                             }
                         }
                     }
