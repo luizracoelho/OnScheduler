@@ -44,6 +44,10 @@ namespace OnScheduler.UI
 
         private void OnScheduler_Load(object sender, EventArgs e)
         {
+            OnSchedulerTimer.Start();
+            OnSchedulerTimer.Enabled = true;
+            OnSchedulerTimer.Tick += OnSchedulerTimer_Tick;
+
             ZerarDatas();
 
             AgendamentoDiarioDataGridView.AutoGenerateColumns = false;
@@ -56,6 +60,18 @@ namespace OnScheduler.UI
             OnSchedulerNotifyIcon.Visible = false;
         }
 
+        private void OnSchedulerTimer_Tick(object sender, EventArgs e)
+        {
+            var dataBo = new DataBO();
+            var datas = dataBo.List();
+
+            foreach (var data in datas)
+            {
+                if (data.Hora == DateTime.Now.TimeOfDay)
+                    MessageBox.Show("Timer acionado");
+            }
+        }
+
         #region RodarNaBandeja
 
         private void InitializeOtherComponents()
@@ -65,6 +81,10 @@ namespace OnScheduler.UI
             // OnSchedulerForm
             // 
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnSchedulerForm_FormClosing);
+            //
+            //OnSchedulerNotifyIcon
+            //
+            this.OnSchedulerNotifyIcon.DoubleClick += new System.EventHandler(this.OnSchedulerNotifyIcon_DoubleClick);
             this.ResumeLayout(false);
 
         }

@@ -75,6 +75,7 @@
             this.TipoSazonalidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tempoAvisoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.agendamentoSazonalBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.OnSchedulerTimer = new System.Windows.Forms.Timer(this.components);
             this.tabControl.SuspendLayout();
             this.tabDiario.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -591,6 +592,10 @@
             // 
             this.agendamentoSazonalBindingSource.DataSource = typeof(OnScheduler.AgendamentoSazonal);
             // 
+            // OnSchedulerTimer
+            // 
+            this.OnSchedulerTimer.Interval = 1000;
+            // 
             // OnSchedulerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -677,5 +682,6 @@
         private System.Windows.Forms.TextBox UrlDiarioTextBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox IdDiarioTextBox;
+        private System.Windows.Forms.Timer OnSchedulerTimer;
     }
 }
