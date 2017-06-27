@@ -2,6 +2,7 @@
 using OnScheduler.DAL.Context;
 using System.Data.Entity;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace OnScheduler.DAL
 {
@@ -17,6 +18,14 @@ namespace OnScheduler.DAL
             using (var ctx = new DataContext())
             {
                 return ctx.AgendamentosDiarios.Include(x => x.Datas).FirstOrDefault(x => x.Id == id);
+            }
+        }
+
+        public override List<AgendamentoDiario> List()
+        {
+            using (var ctx = new DataContext())
+            {
+                return ctx.AgendamentosDiarios.Include(x => x.Datas).ToList();
             }
         }
     }

@@ -4,18 +4,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace OnScheduler.UI
 {
     public partial class OnSchedulerForm : Form
     {
-        private IContainer components;
-        private NotifyIcon OnSchedulerNotifyIcon;
-        private ContextMenu OnSchedulerContextMenu;
-        private MenuItem menuItem1;
-
-        public OnSchedulerForm()
+        public OnSchedulerForm(List<AgendamentoDiario> diario, List<AgendamentoSazonal> sazonal)
         {
             components = new Container();
             OnSchedulerContextMenu = new ContextMenu();
@@ -30,7 +26,7 @@ namespace OnScheduler.UI
 
             OnSchedulerNotifyIcon = new NotifyIcon(components)
             {
-                Icon = new Icon("appicon.ico"),
+                Icon = new Icon("OnScheduler.ico"),
                 ContextMenu = OnSchedulerContextMenu,
                 Text = "OnScheduler",
                 Visible = true
@@ -40,6 +36,9 @@ namespace OnScheduler.UI
 
             InitializeComponent();
             InitializeOtherComponents();
+
+            agendamentosDiarios = diario;
+            agendamentosSazonais = sazonal;
         }
 
         private void OnScheduler_Load(object sender, EventArgs e)
@@ -51,10 +50,12 @@ namespace OnScheduler.UI
             ZerarDatas();
 
             AgendamentoDiarioDataGridView.AutoGenerateColumns = false;
-            AtualizarGridDiario();
+            agendamentoDiarioBindingSource.DataSource = agendamentosDiarios;
+            AgendamentoDiarioDataGridView.DataSource = agendamentoDiarioBindingSource;
 
             AgendamentoSazonalDataGridView.AutoGenerateColumns = false;
-            AtualizarGridSazonal();
+            agendamentoSazonalBindingSource.DataSource = agendamentosSazonais;
+            AgendamentoSazonalDataGridView.DataSource = agendamentoSazonalBindingSource;
             TipoSazonalidadeComboBox.DataSource = Enum.GetNames(typeof(TipoSazonalidade)).ToList();
 
             OnSchedulerNotifyIcon.Visible = false;
@@ -62,17 +63,31 @@ namespace OnScheduler.UI
 
         private void OnSchedulerTimer_Tick(object sender, EventArgs e)
         {
-            var dataBo = new DataBO();
-            var datas = dataBo.List();
-
-            foreach (var data in datas)
+            Task.Run(async () =>
             {
-                if (data.Hora == DateTime.Now.TimeOfDay)
-                    MessageBox.Show("Timer acionado");
-            }
+                #region Agendamento Diario
+                foreach (var item in agendamentosDiarios)
+                {
+                    await AgendamentoDiarioBO.ExecutarAsync(item);
+                }
+                #endregion
+
+                #region Agendamento Sazonal
+
+                foreach (var item in agendamentosSazonais)
+                {
+                    await AgendamentoSazonalBO.ExecutarAsync(item);
+                }
+                #endregion
+            });
         }
 
-        #region RodarNaBandeja
+        #region Rodar na Bandeja
+
+        private IContainer components;
+        private NotifyIcon OnSchedulerNotifyIcon;
+        private ContextMenu OnSchedulerContextMenu;
+        private MenuItem menuItem1;
 
         private void InitializeOtherComponents()
         {
@@ -81,6 +96,7 @@ namespace OnScheduler.UI
             // OnSchedulerForm
             // 
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnSchedulerForm_FormClosing);
+            this.Resize += OnSchedulerForm_Resize;
             //
             //OnSchedulerNotifyIcon
             //
@@ -89,12 +105,20 @@ namespace OnScheduler.UI
 
         }
 
-        private void OnSchedulerNotifyIcon_DoubleClick(object sender, EventArgs e)
+        private void OnSchedulerForm_Resize(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Minimized)
-                WindowState = FormWindowState.Normal;
+            {
+                OnSchedulerNotifyIcon.Visible = true;
+                Hide();
+            }
+        }
 
+        private void OnSchedulerNotifyIcon_DoubleClick(object sender, EventArgs e)
+        {
             Show();
+
+            WindowState = FormWindowState.Maximized;
 
             OnSchedulerNotifyIcon.Visible = false;
         }
@@ -115,9 +139,19 @@ namespace OnScheduler.UI
 
         #endregion
 
-        #region AgendamentoDiario
+        #region Agendamento Diario
 
-        private void AdicionarDiarioButton_Click(object sender, EventArgs e)
+        private List<AgendamentoDiario> agendamentosDiarios;
+
+        private void ListarAgendamentosDiarios()
+        {
+            using (var bo = new AgendamentoDiarioBO())
+            {
+                agendamentosDiarios = bo.List();
+            }
+        }
+
+        private void SalvarDiarioButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -140,6 +174,7 @@ namespace OnScheduler.UI
                     AtualizarGridDiario();
 
                     ResetarCampos();
+                    ListarAgendamentosDiarios();
                 }
             }
             catch (Exception ex)
@@ -148,10 +183,21 @@ namespace OnScheduler.UI
             }
         }
 
+        private void AtualizarGridDiario()
+        {
+            using (var bo = new AgendamentoDiarioBO())
+            {
+                agendamentoDiarioBindingSource.DataSource = bo.List();
+                AgendamentoDiarioDataGridView.DataSource = agendamentoDiarioBindingSource;
+            }
+
+        }
+
         private void ResetarCampos()
         {
             DescricaoDiarioTextBox.Text = "";
             UrlDiarioTextBox.Text = "";
+            IdDiarioTextBox.Text = "";
 
             DomingoCheckBox.Checked = false;
             SegundaCheckBox.Checked = false;
@@ -298,15 +344,6 @@ namespace OnScheduler.UI
             HabilitaDesabilitaCheckBox(SabadoCheckBox, SabadoDateTimePicker);
         }
 
-        private void AtualizarGridDiario()
-        {
-            using (var bo = new AgendamentoDiarioBO())
-            {
-                agendamentoDiarioBindingSource.DataSource = bo.List();
-                AgendamentoDiarioDataGridView.DataSource = agendamentoDiarioBindingSource;
-            }
-        }
-
         private void AgendamentoDiarioDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DesabilitarCampos();
@@ -386,7 +423,7 @@ namespace OnScheduler.UI
                     QuintaDateTimePicker.Value = DateTime.Today.AddTicks(data.Hora.Ticks);
                 }
 
-                if (data.DiaSemana == DayOfWeek.Sunday)
+                if (data.DiaSemana == DayOfWeek.Friday)
                 {
                     SextaCheckBox.Checked = true;
                     SextaDateTimePicker.Value = DateTime.Today.AddTicks(data.Hora.Ticks);
@@ -426,6 +463,7 @@ namespace OnScheduler.UI
                                 AtualizarGridDiario();
 
                                 ResetarCampos();
+                                ListarAgendamentosDiarios();
                             }
                         }
                     }
@@ -439,8 +477,19 @@ namespace OnScheduler.UI
 
         #endregion
 
-        #region AgendamentoSazonal
-        private void AdicionarSazonalButton_Click(object sender, EventArgs e)
+        #region Agendamento Sazonal
+
+        private List<AgendamentoSazonal> agendamentosSazonais;
+
+        private void ListarAgendamentosSazonais()
+        {
+            using (var bo = new AgendamentoSazonalBO())
+            {
+                agendamentosSazonais = bo.List();
+            }
+        }
+
+        private void SalvarSazonalButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -464,6 +513,7 @@ namespace OnScheduler.UI
                     AtualizarGridSazonal();
 
                     LimparCampos();
+                    ListarAgendamentosSazonais();
                 }
             }
             catch (Exception ex)
@@ -479,6 +529,7 @@ namespace OnScheduler.UI
                 agendamentoSazonalBindingSource.DataSource = bo.List();
                 AgendamentoSazonalDataGridView.DataSource = agendamentoSazonalBindingSource;
             }
+
         }
 
         private void LimparCampos()
@@ -487,6 +538,7 @@ namespace OnScheduler.UI
             UrlSazonalTextBox.Text = "";
             TipoSazonalidadeComboBox.SelectedIndex = 0;
             SazonalidadeTextBox.Text = "";
+            IdSazonalTextBox.Text = "";
 
             DescricaoSazonalTextBox.Focus();
         }
@@ -536,6 +588,7 @@ namespace OnScheduler.UI
                                 AtualizarGridSazonal();
 
                                 LimparCampos();
+                                ListarAgendamentosSazonais();
                             }
                         }
                     }
@@ -546,6 +599,7 @@ namespace OnScheduler.UI
                 MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         #endregion
     }

@@ -57,6 +57,7 @@
     <Compile Include="AgendamentoDiarioDAO.cs" />
     <Compile Include="AgendamentoSazonalDAO.cs" />
     <Compile Include="Configurations\AgendamentoConfig.cs" />
+    <Compile Include="Configurations\AgendamentoSazonalConfig.cs" />
     <Compile Include="Configurations\DataConfig.cs" />
     <Compile Include="Context\DataContext.cs" />
     <Compile Include="DataDAO.cs" />

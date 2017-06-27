@@ -1,7 +1,11 @@
 ﻿using OnBase;
 using OnScheduler.DAL;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace OnScheduler.BLL
 {
@@ -87,6 +91,25 @@ namespace OnScheduler.BLL
                 {
                     data.AgendamentoDiario_Id = entity.Id;
                     dataBo.Save(data);
+                }
+            }
+        }
+
+        public static async Task ExecutarAsync(AgendamentoDiario agendamento)
+        {
+            var date = DateTime.Now.TimeOfDay;
+
+            foreach (var data in agendamento.Datas)
+            {
+                if (data.Hora.Hours == date.Hours && data.Hora.Minutes == date.Minutes)
+                {
+                    using (var client = new HttpClient())
+                    {
+                        var rgx = new Regex("http://?");
+                        var preffix = rgx.IsMatch(agendamento.Url) ? "" : "http://";
+
+                        await client.GetAsync(preffix + agendamento.Url);
+                    }
                 }
             }
         }
