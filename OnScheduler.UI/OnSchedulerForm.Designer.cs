@@ -101,7 +101,7 @@
             // 
             // OnSchedulerTimer
             // 
-            this.OnSchedulerTimer.Interval = 9000;
+            this.OnSchedulerTimer.Interval = 60000;
             // 
             // splitContainer1
             // 
