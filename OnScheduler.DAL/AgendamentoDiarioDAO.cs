@@ -1,8 +1,9 @@
 ﻿using OnBase;
 using OnScheduler.DAL.Context;
+using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace OnScheduler.DAL
 {
@@ -26,6 +27,25 @@ namespace OnScheduler.DAL
             using (var ctx = new DataContext())
             {
                 return ctx.AgendamentosDiarios.Include(x => x.Datas).ToList();
+            }
+        }
+
+        public void EditUltimaExecucao(AgendamentoDiario agendamento)
+        {
+            try
+            {
+                using (var ctx = new DataContext())
+                {
+                    ctx.Agendamentos.Attach(agendamento);
+
+                    ctx.Entry(agendamento).Property(x => x.DataUltimaExecucao).IsModified = true;
+
+                    ctx.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }

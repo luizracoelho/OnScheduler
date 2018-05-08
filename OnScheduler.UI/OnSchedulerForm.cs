@@ -68,7 +68,14 @@ namespace OnScheduler.UI
                 #region Agendamento Diario
                 foreach (var item in agendamentosDiarios)
                 {
-                    await AgendamentoDiarioBO.ExecutarAsync(item);
+                    try
+                    {
+                        await AgendamentoDiarioBO.ExecutarAsync(item);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 #endregion
 

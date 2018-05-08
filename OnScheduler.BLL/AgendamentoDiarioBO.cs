@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace OnScheduler.BLL
 {
@@ -94,6 +95,37 @@ namespace OnScheduler.BLL
             }
         }
 
+        private static void EditUltimaExecucao(AgendamentoDiario agendamento)
+        {
+            try
+            {
+                using (var scope = new TransactionScope())
+                {
+                    var datas = agendamento.Datas;
+
+                    //Anular as foreign keys
+                    agendamento.Datas = null;
+
+                    //Adicionar a data da última execução
+                    agendamento.DataUltimaExecucao = DateTime.Now;
+
+                    //Editar a data da última execução
+                    using (var dao = new AgendamentoDiarioDAO())
+                    {
+                        dao.EditUltimaExecucao(agendamento);
+                    }
+
+                    agendamento.Datas = datas;
+
+                    scope.Complete();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public static async Task ExecutarAsync(AgendamentoDiario agendamento)
         {
             var date = DateTime.Now.TimeOfDay;
@@ -106,8 +138,18 @@ namespace OnScheduler.BLL
                     {
                         var rgx = new Regex("http://?");
                         var preffix = rgx.IsMatch(agendamento.Url) ? "" : "http://";
+                        
+                        agendamento.DataUltimaExecucao = agendamento.DataUltimaExecucao ?? new DateTime();
 
-                        await client.GetAsync(preffix + agendamento.Url);
+                        //Verificar se a URL será requisitada
+                        if (agendamento.DataUltimaExecucao?.Hour <= data.Hora.Hours && agendamento.DataUltimaExecucao?.Minute <= data.Hora.Minutes)
+                        {
+                            //Editar a ultima execução
+                            EditUltimaExecucao(agendamento);
+
+                            //Requisitar URL
+                            await client.GetAsync(preffix + agendamento.Url);
+                        }
                     }
                 }
             }

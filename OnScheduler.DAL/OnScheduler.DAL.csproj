@@ -69,6 +69,10 @@
     <Compile Include="Migrations\201706201814064_Descricao_Agendamento.Designer.cs">
       <DependentUpon>201706201814064_Descricao_Agendamento.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805081414432_Add_DataUltimaExecucao_Agendamento.cs" />
+    <Compile Include="Migrations\201805081414432_Add_DataUltimaExecucao_Agendamento.Designer.cs">
+      <DependentUpon>201805081414432_Add_DataUltimaExecucao_Agendamento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -88,6 +92,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706201814064_Descricao_Agendamento.resx">
       <DependentUpon>201706201814064_Descricao_Agendamento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805081414432_Add_DataUltimaExecucao_Agendamento.resx">
+      <DependentUpon>201805081414432_Add_DataUltimaExecucao_Agendamento.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
