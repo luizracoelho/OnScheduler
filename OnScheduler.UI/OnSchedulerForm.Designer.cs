@@ -35,11 +35,9 @@
             this.OnSchedulerTimer = new System.Windows.Forms.Timer(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.DiarioAtivoCheckBox = new System.Windows.Forms.CheckBox();
             this.SalvarDiarioButton = new System.Windows.Forms.Button();
             this.AgendamentoDiarioDataGridView = new System.Windows.Forms.DataGridView();
-            this.IdDiario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DescricaoDiarioTextBox = new System.Windows.Forms.TextBox();
             this.DomingoCheckBox = new System.Windows.Forms.CheckBox();
             this.TercaCheckBox = new System.Windows.Forms.CheckBox();
@@ -60,12 +58,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.IdDiarioTextBox = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.SazonalAtivoCheckBox = new System.Windows.Forms.CheckBox();
             this.SalvarSazonalButton = new System.Windows.Forms.Button();
             this.AgendamentoSazonalDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IdSazonal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tempoAvisoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UrlSazonalTextBox = new System.Windows.Forms.TextBox();
             this.DescricaoSazonalTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -79,6 +74,15 @@
             this.SalvarDiarioToolStripMenu = new System.Windows.Forms.ToolStripButton();
             this.SalvarSazonalToolStripMenu = new System.Windows.Forms.ToolStripButton();
             this.SalvarDiariotoolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IdSazonal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tempoAvisoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ativo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.IdDiario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.agendamentoDiarioBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.agendamentoSazonalBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -126,6 +130,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.DiarioAtivoCheckBox);
             this.groupBox1.Controls.Add(this.SalvarDiarioButton);
             this.groupBox1.Controls.Add(this.AgendamentoDiarioDataGridView);
             this.groupBox1.Controls.Add(this.DescricaoDiarioTextBox);
@@ -155,6 +160,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Diário";
             // 
+            // DiarioAtivoCheckBox
+            // 
+            this.DiarioAtivoCheckBox.AutoSize = true;
+            this.DiarioAtivoCheckBox.Location = new System.Drawing.Point(493, 73);
+            this.DiarioAtivoCheckBox.Name = "DiarioAtivoCheckBox";
+            this.DiarioAtivoCheckBox.Size = new System.Drawing.Size(58, 19);
+            this.DiarioAtivoCheckBox.TabIndex = 17;
+            this.DiarioAtivoCheckBox.Text = "Ativo?";
+            this.DiarioAtivoCheckBox.UseVisualStyleBackColor = true;
+            // 
             // SalvarDiarioButton
             // 
             this.SalvarDiarioButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -181,7 +196,8 @@
             this.AgendamentoDiarioDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IdDiario,
             this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn3});
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewCheckBoxColumn1});
             this.AgendamentoDiarioDataGridView.DataSource = this.agendamentoDiarioBindingSource;
             this.AgendamentoDiarioDataGridView.Location = new System.Drawing.Point(557, 25);
             this.AgendamentoDiarioDataGridView.Name = "AgendamentoDiarioDataGridView";
@@ -191,31 +207,6 @@
             this.AgendamentoDiarioDataGridView.TabIndex = 95;
             this.AgendamentoDiarioDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.AgendamentoDiarioDataGridView_CellDoubleClick);
             this.AgendamentoDiarioDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AgendamentoDiarioDataGridView_KeyDown);
-            // 
-            // IdDiario
-            // 
-            this.IdDiario.DataPropertyName = "Id";
-            this.IdDiario.HeaderText = "Id";
-            this.IdDiario.Name = "IdDiario";
-            this.IdDiario.ReadOnly = true;
-            this.IdDiario.Visible = false;
-            this.IdDiario.Width = 218;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "Descricao";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Descrição";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 87;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Url";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Url";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 48;
             // 
             // DescricaoDiarioTextBox
             // 
@@ -435,6 +426,7 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.SazonalAtivoCheckBox);
             this.groupBox2.Controls.Add(this.SalvarSazonalButton);
             this.groupBox2.Controls.Add(this.AgendamentoSazonalDataGridView);
             this.groupBox2.Controls.Add(this.UrlSazonalTextBox);
@@ -452,13 +444,23 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Sazonal";
             // 
+            // SazonalAtivoCheckBox
+            // 
+            this.SazonalAtivoCheckBox.AutoSize = true;
+            this.SazonalAtivoCheckBox.Location = new System.Drawing.Point(495, 109);
+            this.SazonalAtivoCheckBox.Name = "SazonalAtivoCheckBox";
+            this.SazonalAtivoCheckBox.Size = new System.Drawing.Size(56, 17);
+            this.SazonalAtivoCheckBox.TabIndex = 22;
+            this.SazonalAtivoCheckBox.Text = "Ativo?";
+            this.SazonalAtivoCheckBox.UseVisualStyleBackColor = true;
+            // 
             // SalvarSazonalButton
             // 
             this.SalvarSazonalButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SalvarSazonalButton.Location = new System.Drawing.Point(6, 280);
             this.SalvarSazonalButton.Name = "SalvarSazonalButton";
             this.SalvarSazonalButton.Size = new System.Drawing.Size(75, 23);
-            this.SalvarSazonalButton.TabIndex = 21;
+            this.SalvarSazonalButton.TabIndex = 23;
             this.SalvarSazonalButton.Text = "Salvar";
             this.SalvarSazonalButton.UseVisualStyleBackColor = true;
             this.SalvarSazonalButton.Click += new System.EventHandler(this.SalvarSazonalButton_Click);
@@ -479,7 +481,8 @@
             this.dataGridViewTextBoxColumn6,
             this.IdSazonal,
             this.dataGridViewTextBoxColumn5,
-            this.tempoAvisoDataGridViewTextBoxColumn});
+            this.tempoAvisoDataGridViewTextBoxColumn,
+            this.Ativo});
             this.AgendamentoSazonalDataGridView.DataSource = this.agendamentoSazonalBindingSource;
             this.AgendamentoSazonalDataGridView.Location = new System.Drawing.Point(557, 27);
             this.AgendamentoSazonalDataGridView.Name = "AgendamentoSazonalDataGridView";
@@ -489,6 +492,111 @@
             this.AgendamentoSazonalDataGridView.TabIndex = 38;
             this.AgendamentoSazonalDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.AgendamentoSazonalDataGridView_CellDoubleClick);
             this.AgendamentoSazonalDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AgendamentoSazonalDataGridView_KeyDown);
+            // 
+            // UrlSazonalTextBox
+            // 
+            this.UrlSazonalTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.UrlSazonalTextBox.Location = new System.Drawing.Point(163, 55);
+            this.UrlSazonalTextBox.Name = "UrlSazonalTextBox";
+            this.UrlSazonalTextBox.Size = new System.Drawing.Size(388, 20);
+            this.UrlSazonalTextBox.TabIndex = 19;
+            // 
+            // DescricaoSazonalTextBox
+            // 
+            this.DescricaoSazonalTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.DescricaoSazonalTextBox.Location = new System.Drawing.Point(163, 27);
+            this.DescricaoSazonalTextBox.Name = "DescricaoSazonalTextBox";
+            this.DescricaoSazonalTextBox.Size = new System.Drawing.Size(388, 20);
+            this.DescricaoSazonalTextBox.TabIndex = 18;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 27);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 13);
+            this.label3.TabIndex = 34;
+            this.label3.Text = "Descrição:";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 58);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(32, 13);
+            this.label4.TabIndex = 35;
+            this.label4.Text = "URL:";
+            // 
+            // IdSazonalTextBox
+            // 
+            this.IdSazonalTextBox.Location = new System.Drawing.Point(432, 83);
+            this.IdSazonalTextBox.Name = "IdSazonalTextBox";
+            this.IdSazonalTextBox.Size = new System.Drawing.Size(119, 20);
+            this.IdSazonalTextBox.TabIndex = 91;
+            this.IdSazonalTextBox.Visible = false;
+            // 
+            // TipoSazonalidadeComboBox
+            // 
+            this.TipoSazonalidadeComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.TipoSazonalidadeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TipoSazonalidadeComboBox.FormattingEnabled = true;
+            this.TipoSazonalidadeComboBox.Location = new System.Drawing.Point(286, 82);
+            this.TipoSazonalidadeComboBox.Name = "TipoSazonalidadeComboBox";
+            this.TipoSazonalidadeComboBox.Size = new System.Drawing.Size(142, 21);
+            this.TipoSazonalidadeComboBox.TabIndex = 21;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 89);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(74, 13);
+            this.label6.TabIndex = 36;
+            this.label6.Text = "Sazonalidade:";
+            // 
+            // SazonalidadeTextBox
+            // 
+            this.SazonalidadeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.SazonalidadeTextBox.Location = new System.Drawing.Point(163, 82);
+            this.SazonalidadeTextBox.Name = "SazonalidadeTextBox";
+            this.SazonalidadeTextBox.Size = new System.Drawing.Size(117, 20);
+            this.SazonalidadeTextBox.TabIndex = 20;
+            this.SazonalidadeTextBox.Text = "0";
+            // 
+            // SalvarDiarioToolStripButton
+            // 
+            this.SalvarDiarioToolStripButton.Name = "SalvarDiarioToolStripButton";
+            this.SalvarDiarioToolStripButton.Size = new System.Drawing.Size(23, 23);
+            // 
+            // SalvarSazonalToolStripButton
+            // 
+            this.SalvarSazonalToolStripButton.Name = "SalvarSazonalToolStripButton";
+            this.SalvarSazonalToolStripButton.Size = new System.Drawing.Size(23, 23);
+            // 
+            // SalvarDiarioToolStripMenu
+            // 
+            this.SalvarDiarioToolStripMenu.Name = "SalvarDiarioToolStripMenu";
+            this.SalvarDiarioToolStripMenu.Size = new System.Drawing.Size(23, 23);
+            // 
+            // SalvarSazonalToolStripMenu
+            // 
+            this.SalvarSazonalToolStripMenu.Name = "SalvarSazonalToolStripMenu";
+            this.SalvarSazonalToolStripMenu.Size = new System.Drawing.Size(23, 23);
+            // 
+            // SalvarDiariotoolStripButton1
+            // 
+            this.SalvarDiariotoolStripButton1.Name = "SalvarDiariotoolStripButton1";
+            this.SalvarDiariotoolStripButton1.Size = new System.Drawing.Size(23, 23);
             // 
             // dataGridViewTextBoxColumn6
             // 
@@ -523,110 +631,46 @@
             this.tempoAvisoDataGridViewTextBoxColumn.ReadOnly = true;
             this.tempoAvisoDataGridViewTextBoxColumn.Width = 96;
             // 
-            // UrlSazonalTextBox
+            // Ativo
             // 
-            this.UrlSazonalTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.UrlSazonalTextBox.Location = new System.Drawing.Point(163, 55);
-            this.UrlSazonalTextBox.Name = "UrlSazonalTextBox";
-            this.UrlSazonalTextBox.Size = new System.Drawing.Size(388, 20);
-            this.UrlSazonalTextBox.TabIndex = 18;
+            this.Ativo.DataPropertyName = "Ativo";
+            this.Ativo.HeaderText = "Ativo";
+            this.Ativo.Name = "Ativo";
+            this.Ativo.ReadOnly = true;
+            this.Ativo.Width = 37;
             // 
-            // DescricaoSazonalTextBox
+            // IdDiario
             // 
-            this.DescricaoSazonalTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.DescricaoSazonalTextBox.Location = new System.Drawing.Point(163, 27);
-            this.DescricaoSazonalTextBox.Name = "DescricaoSazonalTextBox";
-            this.DescricaoSazonalTextBox.Size = new System.Drawing.Size(388, 20);
-            this.DescricaoSazonalTextBox.TabIndex = 17;
+            this.IdDiario.DataPropertyName = "Id";
+            this.IdDiario.HeaderText = "Id";
+            this.IdDiario.Name = "IdDiario";
+            this.IdDiario.ReadOnly = true;
+            this.IdDiario.Visible = false;
+            this.IdDiario.Width = 42;
             // 
-            // label3
+            // dataGridViewTextBoxColumn4
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 27);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 13);
-            this.label3.TabIndex = 34;
-            this.label3.Text = "Descrição:";
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "Descricao";
+            this.dataGridViewTextBoxColumn4.HeaderText = "Descrição";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 87;
             // 
-            // label4
+            // dataGridViewTextBoxColumn3
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 58);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(32, 13);
-            this.label4.TabIndex = 35;
-            this.label4.Text = "URL:";
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Url";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Url";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 48;
             // 
-            // IdSazonalTextBox
+            // dataGridViewCheckBoxColumn1
             // 
-            this.IdSazonalTextBox.Location = new System.Drawing.Point(432, 83);
-            this.IdSazonalTextBox.Name = "IdSazonalTextBox";
-            this.IdSazonalTextBox.Size = new System.Drawing.Size(100, 20);
-            this.IdSazonalTextBox.TabIndex = 37;
-            this.IdSazonalTextBox.Visible = false;
-            // 
-            // TipoSazonalidadeComboBox
-            // 
-            this.TipoSazonalidadeComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.TipoSazonalidadeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.TipoSazonalidadeComboBox.FormattingEnabled = true;
-            this.TipoSazonalidadeComboBox.Location = new System.Drawing.Point(286, 82);
-            this.TipoSazonalidadeComboBox.Name = "TipoSazonalidadeComboBox";
-            this.TipoSazonalidadeComboBox.Size = new System.Drawing.Size(142, 21);
-            this.TipoSazonalidadeComboBox.TabIndex = 20;
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 89);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(74, 13);
-            this.label6.TabIndex = 36;
-            this.label6.Text = "Sazonalidade:";
-            // 
-            // SazonalidadeTextBox
-            // 
-            this.SazonalidadeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.SazonalidadeTextBox.Location = new System.Drawing.Point(163, 82);
-            this.SazonalidadeTextBox.Name = "SazonalidadeTextBox";
-            this.SazonalidadeTextBox.Size = new System.Drawing.Size(117, 20);
-            this.SazonalidadeTextBox.TabIndex = 19;
-            this.SazonalidadeTextBox.Text = "0";
-            // 
-            // SalvarDiarioToolStripButton
-            // 
-            this.SalvarDiarioToolStripButton.Name = "SalvarDiarioToolStripButton";
-            this.SalvarDiarioToolStripButton.Size = new System.Drawing.Size(23, 23);
-            // 
-            // SalvarSazonalToolStripButton
-            // 
-            this.SalvarSazonalToolStripButton.Name = "SalvarSazonalToolStripButton";
-            this.SalvarSazonalToolStripButton.Size = new System.Drawing.Size(23, 23);
-            // 
-            // SalvarDiarioToolStripMenu
-            // 
-            this.SalvarDiarioToolStripMenu.Name = "SalvarDiarioToolStripMenu";
-            this.SalvarDiarioToolStripMenu.Size = new System.Drawing.Size(23, 23);
-            // 
-            // SalvarSazonalToolStripMenu
-            // 
-            this.SalvarSazonalToolStripMenu.Name = "SalvarSazonalToolStripMenu";
-            this.SalvarSazonalToolStripMenu.Size = new System.Drawing.Size(23, 23);
-            // 
-            // SalvarDiariotoolStripButton1
-            // 
-            this.SalvarDiariotoolStripButton1.Name = "SalvarDiariotoolStripButton1";
-            this.SalvarDiariotoolStripButton1.Size = new System.Drawing.Size(23, 23);
+            this.dataGridViewCheckBoxColumn1.DataPropertyName = "Ativo";
+            this.dataGridViewCheckBoxColumn1.HeaderText = "Ativo";
+            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            this.dataGridViewCheckBoxColumn1.ReadOnly = true;
+            this.dataGridViewCheckBoxColumn1.Width = 38;
             // 
             // OnSchedulerForm
             // 
@@ -671,10 +715,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView AgendamentoSazonalDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IdSazonal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tempoAvisoDataGridViewTextBoxColumn;
         private System.Windows.Forms.TextBox UrlSazonalTextBox;
         private System.Windows.Forms.TextBox DescricaoSazonalTextBox;
         private System.Windows.Forms.Label label3;
@@ -705,13 +745,21 @@
         private System.Windows.Forms.ToolStripButton SalvarDiarioToolStripButton;
         private System.Windows.Forms.ToolStripButton SalvarSazonalToolStripButton;
         private System.Windows.Forms.DataGridView AgendamentoDiarioDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IdDiario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.ToolStripButton SalvarDiarioToolStripMenu;
         private System.Windows.Forms.ToolStripButton SalvarSazonalToolStripMenu;
         private System.Windows.Forms.ToolStripButton SalvarDiariotoolStripButton1;
         private System.Windows.Forms.Button SalvarDiarioButton;
         private System.Windows.Forms.Button SalvarSazonalButton;
+        private System.Windows.Forms.CheckBox DiarioAtivoCheckBox;
+        private System.Windows.Forms.CheckBox SazonalAtivoCheckBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdDiario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdSazonal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tempoAvisoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Ativo;
     }
 }

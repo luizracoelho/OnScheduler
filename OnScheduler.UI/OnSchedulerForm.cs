@@ -52,11 +52,13 @@ namespace OnScheduler.UI
             AgendamentoDiarioDataGridView.AutoGenerateColumns = false;
             agendamentoDiarioBindingSource.DataSource = agendamentosDiarios;
             AgendamentoDiarioDataGridView.DataSource = agendamentoDiarioBindingSource;
+            DiarioAtivoCheckBox.Checked = true;
 
             AgendamentoSazonalDataGridView.AutoGenerateColumns = false;
             agendamentoSazonalBindingSource.DataSource = agendamentosSazonais;
             AgendamentoSazonalDataGridView.DataSource = agendamentoSazonalBindingSource;
             TipoSazonalidadeComboBox.DataSource = Enum.GetNames(typeof(TipoSazonalidade)).ToList();
+            SazonalAtivoCheckBox.Checked = true;
 
             OnSchedulerNotifyIcon.Visible = false;
         }
@@ -65,25 +67,19 @@ namespace OnScheduler.UI
         {
             Task.Run(async () =>
             {
-                #region Agendamento Diario
+                //Agendamento Diario
                 foreach (var item in agendamentosDiarios)
-                {
-                    await AgendamentoDiarioBO.ExecutarAsync(item);
-                }
-                #endregion
+                    if (item.Ativo)
+                        await AgendamentoDiarioBO.ExecutarAsync(item);
 
-                #region Agendamento Sazonal
-
+                //Agendamento Sazonal
                 foreach (var item in agendamentosSazonais)
-                {
-                    await AgendamentoSazonalBO.ExecutarAsync(item);
-                }
-                #endregion
+                    if (item.Ativo)
+                        await AgendamentoSazonalBO.ExecutarAsync(item);
             });
         }
 
         #region Rodar na Bandeja
-
         private IContainer components;
         private NotifyIcon OnSchedulerNotifyIcon;
         private ContextMenu OnSchedulerContextMenu;
@@ -136,11 +132,9 @@ namespace OnScheduler.UI
             WindowState = FormWindowState.Minimized;
             e.Cancel = true;
         }
-
         #endregion
 
         #region Agendamento Diario
-
         private List<AgendamentoDiario> agendamentosDiarios;
 
         private void ListarAgendamentosDiarios()
@@ -164,7 +158,8 @@ namespace OnScheduler.UI
                         Id = id,
                         Url = UrlDiarioTextBox.Text,
                         Datas = PreencherDatas(),
-                        Descricao = DescricaoDiarioTextBox.Text
+                        Descricao = DescricaoDiarioTextBox.Text,
+                        Ativo = DiarioAtivoCheckBox.Checked
                     };
 
                     bo.Save(agendamentoDiario);
@@ -214,6 +209,8 @@ namespace OnScheduler.UI
             QuintaDateTimePicker.Enabled = false;
             SextaDateTimePicker.Enabled = false;
             SabadoDateTimePicker.Enabled = false;
+
+            DiarioAtivoCheckBox.Checked = true;
 
             ZerarDatas();
 
@@ -359,6 +356,7 @@ namespace OnScheduler.UI
                     IdDiarioTextBox.Text = agendamento.Id.ToString();
                     DescricaoDiarioTextBox.Text = agendamento.Descricao;
                     UrlDiarioTextBox.Text = agendamento.Url;
+                    DiarioAtivoCheckBox.Checked = agendamento.Ativo;
 
                     PreencherCheckBox(agendamento);
                 }
@@ -474,11 +472,9 @@ namespace OnScheduler.UI
                 MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         #endregion
 
         #region Agendamento Sazonal
-
         private List<AgendamentoSazonal> agendamentosSazonais;
 
         private void ListarAgendamentosSazonais()
@@ -503,7 +499,8 @@ namespace OnScheduler.UI
                         Url = UrlSazonalTextBox.Text,
                         Descricao = DescricaoSazonalTextBox.Text,
                         TempoAviso = Convert.ToDecimal(SazonalidadeTextBox.Text),
-                        TipoSazonalidade = (TipoSazonalidade)TipoSazonalidadeComboBox.SelectedIndex
+                        TipoSazonalidade = (TipoSazonalidade)TipoSazonalidadeComboBox.SelectedIndex,
+                        Ativo = SazonalAtivoCheckBox.Checked
                     };
 
                     bo.Save(agendamentoSazonal);
@@ -539,6 +536,7 @@ namespace OnScheduler.UI
             TipoSazonalidadeComboBox.SelectedIndex = 0;
             SazonalidadeTextBox.Text = "";
             IdSazonalTextBox.Text = "";
+            SazonalAtivoCheckBox.Checked = true;
 
             DescricaoSazonalTextBox.Focus();
         }
@@ -558,6 +556,7 @@ namespace OnScheduler.UI
                     UrlSazonalTextBox.Text = agendamentoSazonal.Url;
                     TipoSazonalidadeComboBox.SelectedIndex = (int)agendamentoSazonal.TipoSazonalidade;
                     SazonalidadeTextBox.Text = agendamentoSazonal.TempoAviso.ToString();
+                    SazonalAtivoCheckBox.Checked = agendamentoSazonal.Ativo;
                 }
             }
         }
@@ -599,8 +598,6 @@ namespace OnScheduler.UI
                 MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
         #endregion
     }
 }
