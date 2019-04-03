@@ -12,7 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\leona\Desktop\</PublishUrl>
+    <PublishUrl>C:\Users\leona\Desktop\Projetos\OnScheduler\Release\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -21,11 +21,14 @@
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
+    <MapFileExtensions>false</MapFileExtensions>
     <SupportUrl>http://www.onsoft.eti.br</SupportUrl>
+    <TargetCulture>pt-BR</TargetCulture>
     <ProductName>OnScheduler</ProductName>
     <PublisherName>Onsoft</PublisherName>
-    <ApplicationRevision>4</ApplicationRevision>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>6</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -111,7 +114,6 @@
     <EmbeddedResource Include="SplashForm.resx">
       <DependentUpon>SplashForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="OnScheduler.UI_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\OnScheduler.AgendamentoDiario.datasource" />
     <None Include="Properties\DataSources\OnScheduler.AgendamentoSazonal.datasource" />
@@ -132,8 +134,12 @@
     <Content Include="OnScheduler.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\OnScheduler.ico" />
-    <Content Include="Resources\OnScheduler.png" />
+    <Content Include="Resources\OnScheduler.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\OnScheduler.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
